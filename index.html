@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ DSA Explorer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-icon"><i class="bi bi-compass"></i></div>
+      <span class="brand-name">DSA Explorer</span>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-section-title mb-2">Algorithms</div>
+      <button class="topic-btn" onclick="setTopic('sorting')">
+        <span class="topic-title"><i class="bi bi-bar-chart-fill"></i> Sorting Algorithms</span>
+        <span class="topic-category">Arrays</span>
+      </button>
+      <button class="topic-btn" onclick="setTopic('graph')">
+        <span class="topic-title"><i class="bi bi-diagram-3-fill"></i> Graph BFS / DFS</span>
+        <span class="topic-category">Graphs</span>
+      </button>
+      <button class="topic-btn" onclick="setTopic('dijkstra')">
+        <span class="topic-title"><i class="bi bi-alt"></i> Dijkstra's Algorithm</span>
+        <span class="topic-category">Graphs</span>
+      </button>
+      <button class="topic-btn" onclick="setTopic('astar')">
+        <span class="topic-title"><i class="bi bi-signpost-split-fill"></i> A* Pathfinding</span>
+        <span class="topic-category">Heuristics</span>
+      </button>
+      <div class="sidebar-section-title mt-4 mb-2">Data Structures</div>
+      <button class="topic-btn" onclick="setTopic('linkedlist')">
+        <span class="topic-title"><i class="bi bi-link-45deg"></i> Linked List</span>
+        <span class="topic-category">Linear DS</span>
+      </button>
+      <button class="topic-btn" onclick="setTopic('stackqueue')">
+        <span class="topic-title"><i class="bi bi-layers-fill"></i> Stack &amp; Queue</span>
+        <span class="topic-category">Linear DS</span>
+      </button>
+      <button class="topic-btn" onclick="setTopic('bst')">
+        <span class="topic-title"><i class="bi bi-diagram-2-fill"></i> Binary Search Tree</span>
+        <span class="topic-category">Trees</span>
+      </button>
+    </div>
+    <div class="quick-ref">
+      <div class="quick-ref-title"><i class="bi bi-database-fill"></i> Quick Ref</div>
+      <div class="quick-ref-grid">
+        <span>int: 4 bytes</span><span>char: 1 byte</span>
+        <span>float: 4 bytes</span><span>double: 8 bytes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+    <div id="topbar">
+      <span class="badge-tag badge-cpp">C++ 17</span>
+      <span class="badge-tag badge-stl">STL Standard</span>
+    </div>
+    <div id="content">
+
+      <!-- Topic Header -->
+      <div id="topic-header">
+        <div class="d-flex align-items-center gap-3">
+          <div class="topic-icon-box" id="topic-icon"><i class="bi bi-diagram-3-fill"></i></div>
+          <div>
+            <div>
+              <span class="topic-title-main" id="topic-name">Graph BFS / DFS</span>
+              <span class="topic-cat-badge" id="topic-cat">Graphs</span>
+            </div>
+            <div class="topic-desc" id="topic-desc"></div>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <div class="complexity-box">
+            <div class="label"><i class="bi bi-lightning-fill text-warning"></i> Time</div>
+            <div class="value" id="time-complexity"></div>
+          </div>
+          <div class="complexity-box">
+            <div class="label"><i class="bi bi-database-fill text-info"></i> Space</div>
+            <div class="value" id="space-complexity"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Area -->
+      <div id="work-area">
+        <div class="panel">
+          <div class="panel-label">
+            <div class="pulse-dot"></div>
+            Interactive Visualizer
+          </div>
+          <div class="panel-inner" id="visualizer-container"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">
+            <i class="bi bi-code-slash text-secondary"></i>
+            Implementation
+          </div>
+          <div id="code-panel">
+            <div class="code-header">
+              <div class="d-flex align-items-center">
+                <div class="mac-dots">
+                  <div class="mac-dot mac-red"></div>
+                  <div class="mac-dot mac-yellow"></div>
+                  <div class="mac-dot mac-green"></div>
+                </div>
+                <span class="filename" id="code-filename">graph.cpp</span>
+              </div>
+              <button id="copy-btn" title="Copy code" onclick="copyCode()">
+                <i class="bi bi-clipboard" id="copy-icon"></i>
+              </button>
+            </div>
+            <div class="code-body">
+              <pre><code class="language-cpp" id="code-display"></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/dijkstra.js"></script>
+<script src="js/astar.js"></script>
+<script src="js/sorting.js"></script>
+<script src="js/linkedlist.js"></script>
+<script src="js/stackqueue.js"></script>
+<script src="js/bst.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
